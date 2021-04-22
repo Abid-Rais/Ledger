@@ -13,5 +13,10 @@
     git pull origin new-Feature             # Pull new-feature to main 
     git push                                # Complete merge 
 
+    OR 
+
+    git checkout master                     # Switch to main 
+    git merge new-feature
+
     git branch -d new-feature               # Delete branch locally 
     git push origin --delete new-feature    # Delete branch remotely 
