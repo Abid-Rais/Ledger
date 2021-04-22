@@ -1,9 +1,17 @@
-# Feature Branch Workflow
+    # Feature Branch Workflow
 
-    git checkout -b new-feature master 
+    git checkout -b new-feature master      # Create branch 
 
-    git push -u origin new-feature
+    git push -u origin new-Feature          # Initial push to create remote 
 
-    git push 
+    git push                                # All subsequent pushes
 
-    gh pr create 
+    gh pr create                            # Create pull request
+    
+    git checkout master                     # Switch to main
+    git pull                                # Update main 
+    git pull origin new-Feature             # Pull new-feature to main 
+    git push                                # Complete merge 
+
+    git branch -d new-feature               # Delete branch locally 
+    git push origin --delete new-feature    # Delete branch remotely 
