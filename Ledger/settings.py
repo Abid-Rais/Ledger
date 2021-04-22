@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'backend',
     'authentication',
 
-    # 3rd party apps 
+    # 3rd party apps
     "graphene_django"
 ]
 

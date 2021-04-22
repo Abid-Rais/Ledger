@@ -1,0 +1,9 @@
+# Feature Branch Workflow
+
+    git checkout -b new-feature master 
+
+    git push -u origin new-feature
+
+    git push 
+
+    gh pr create 
