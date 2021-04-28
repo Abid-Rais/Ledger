@@ -42,6 +42,10 @@ INSTALLED_APPS = [
 
     # 3rd party apps
     "graphene_django"
+    "graphql_jwt.refresh_token.apps.RefreshTokenConfig",  # refresh token
+    "graphql_auth",
+    "django_filters",
+
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -54,6 +58,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # 3rd party apps
+    "django.contrib.auth.middleware.AuthenticationMiddleware"
 ]
 
 ROOT_URLCONF = 'Ledger.urls'
@@ -137,7 +144,34 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'build', 'media')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 GRAPHENE = {
-    "SCHEMA": "Ledger.schema.schema"
+    "SCHEMA": "Ledger.schema.schema",
+    "MIDDLEWARE": [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware'
+    ]
 }
+
+AUTHENTICATION_BACKENDS = [
+    "graphql_auth.backends.GraphQLAuthBackend",
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+GRAPHQL_JWT = {
+    "JWT_VERIFY_EXPIRATION": True,
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
+    "JWT_ALLOW_ANY_CLASSES": [
+        "graphql_auth.mutations.Register",
+        "graphql_auth.mutations.VerifyAccount",
+        "graphql_auth.mutations.ResendActivationEmail",
+        "graphql_auth.mutations.SendPasswordResetEmail",
+        "graphql_auth.mutations.PasswordReset",
+        "graphql_auth.mutations.ObtainJSONWebToken",
+        "graphql_auth.mutations.VerifyToken",
+        "graphql_auth.mutations.RefreshToken",
+        "graphql_auth.mutations.RevokeToken",
+        "graphql_auth.mutations.VerifySecondaryEmail",
+    ]
+}
+
+AUTH_USER_MODEL = "authentication.CustomUser"
 
 SITE_ID = 1
