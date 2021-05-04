@@ -4,12 +4,13 @@ import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const Login: React.FC = (): ReactElement => {
+    const [form] = Form.useForm();
     const onFinish = () => {
         return null;
     };
 
     return (
-        <Form name="Login" className="login-form" onFinish={onFinish}>
+        <Form name="Login" className="login-form" form={form} onFinish={onFinish}>
             <Form.Item
                 name="username"
                 rules={[
