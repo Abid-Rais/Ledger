@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react';
+import React, { FC, ReactElement } from 'react';
 
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-const Login: React.FC = (): ReactElement => {
+const Login: FC = (): ReactElement => {
     const [form] = Form.useForm();
     const onFinish = () => {
         return null;
