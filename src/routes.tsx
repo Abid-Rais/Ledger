@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Login from './pages/login';
+import Dashboard from './pages/dashboard';
 import Register from './pages/register';
 import resetPassword from './pages/resetPassword';
 import resetPasswordConfirm from './pages/resetPasswordConfirm';
@@ -13,7 +14,8 @@ const BaseRouter = (): ReactElement => (
     <div>
         <BrowserRouter>
             <Switch>
-                <Route exact path="/" component={Login} />
+                <Route exact path="/" component={Dashboard} />
+                <Route exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/signup/" component={Register} />
                 <Route exact path="/password/reset/" component={resetPassword} />
                 <Route exact path="/password/reset/confirm/:uid/:token" component={resetPasswordConfirm} />
