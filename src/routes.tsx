@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Login from './pages/login';
 import Dashboard from './pages/dashboard';
+import Link from './pages/plaidLink';
 import Register from './pages/register';
 import resetPassword from './pages/resetPassword';
 import resetPasswordConfirm from './pages/resetPasswordConfirm';
@@ -15,7 +16,8 @@ const BaseRouter = (): ReactElement => (
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={Dashboard} />
-                <Route exact path="/dashboard" component={Dashboard} />
+                <Route exact path="/dashboard/" component={Dashboard} />
+                <Route exact path="/connectPlaid/" component={Link} />
                 <Route exact path="/signup/" component={Register} />
                 <Route exact path="/password/reset/" component={resetPassword} />
                 <Route exact path="/password/reset/confirm/:uid/:token" component={resetPasswordConfirm} />
