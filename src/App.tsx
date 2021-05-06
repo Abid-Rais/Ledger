@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react';
+import React, { FC, ReactElement } from 'react';
 import './css/App.css';
 
 import BaseRouter from './routes';
 
-const App: React.FC = (): ReactElement => {
+const App: FC = (): ReactElement => {
     return <BaseRouter />;
 };
 
