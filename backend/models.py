@@ -15,7 +15,7 @@ class Account(models.Model):
 
     # Many-to-One Relation to Account (Foreign Key)
     user = models.ForeignKey(
-        CustomUser, related_name="user", on_delete=models.CASCADE)
+        CustomUser, related_name="user_account", on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.accountID
@@ -30,7 +30,7 @@ class PlaidToken(models.Model):
 
     # Many-to-One Relation to Account (Foreign Key)
     user = models.ForeignKey(
-        CustomUser, related_name="user", on_delete=models.CASCADE)
+        CustomUser, related_name="user_plaidToken", on_delete=models.CASCADE)
 
 
 class Transaction(models.Model):
