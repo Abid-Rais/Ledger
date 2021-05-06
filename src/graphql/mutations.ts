@@ -25,7 +25,7 @@ export const LOGIN = gql`
         tokenAuth(username: $username, password: $password) {
             success
             errors
-            unarching
+            unarchiving
             token
             refreshToken
             user {

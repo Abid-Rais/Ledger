@@ -20,9 +20,14 @@ const Register: FC = (): ReactElement => {
         });
     };
 
-    if (error) console.log(error);
+    if (loading) return <div></div>;
 
-    if (data) console.log(data);
+    // Insert tooltip to check email for verifcation link
+    if (data && data.register.success) {
+        return <div></div>;
+    }
+
+    if (error) return <div></div>;
 
     return (
         <Form {...formItemLayout} form={form} name="Register" scrollToFirstError onFinish={onFinish}>

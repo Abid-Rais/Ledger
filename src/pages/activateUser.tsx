@@ -7,7 +7,6 @@ import { Form, Button } from 'antd';
 import { VERIFY_USER } from '../graphql/mutations';
 
 const activateUser: FC<RouteComponentProps> = ({ match }): ReactElement => {
-    const [requestSent, setRequestSent] = useState(false);
     const [verifyAccount, { data, loading, error }] = useMutation(VERIFY_USER);
 
     const onFinish = () => {
@@ -16,13 +15,21 @@ const activateUser: FC<RouteComponentProps> = ({ match }): ReactElement => {
                 token: match.params,
             },
         });
-        setRequestSent(true);
     };
 
-    if (data) console.log(data);
+    // If loading, insert Spinner
+    if (loading) {
+        return <div></div>;
+    }
 
-    if (requestSent) {
+    // After sending request successfully, redirect back to Login
+    if (data && data.verifyAccount.success) {
         return <Redirect to="/" />;
+    }
+
+    // If error, insert tooltop
+    if (error) {
+        return <div></div>;
     }
 
     return (

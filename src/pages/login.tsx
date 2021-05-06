@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
 import { Form, Input, Button } from 'antd';
@@ -11,7 +11,6 @@ const Login: FC = (): ReactElement => {
     const [tokenAuth, { data, loading, error }] = useMutation(LOGIN);
 
     const onFinish = (values: any) => {
-        console.log(values);
         tokenAuth({
             variables: {
                 username: values.username,
@@ -20,8 +19,18 @@ const Login: FC = (): ReactElement => {
         });
     };
 
-    // if (data) console.log(data);
-    // if (error) console.log(error);
+    // If loading, insert Spinner
+    if (loading) {
+        return <div></div>;
+    }
+
+    // If signed in successfully, redirect to Dashboard
+    if (data && data.tokenAuth.success) return <Redirect to="/dashboard/" />;
+
+    // If error, insert tooltop
+    if (error) {
+        return <div></div>;
+    }
 
     return (
         <Form name="Login" className="login-form" form={form} onFinish={onFinish}>
