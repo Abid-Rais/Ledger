@@ -1,39 +1,39 @@
 import React, { FC, ReactElement } from 'react';
+import { useMutation } from '@apollo/client';
 
-import { Form, Input, Row, Col, Checkbox, Button } from 'antd';
+import { Form, Input, Checkbox, Button } from 'antd';
+
+import { REGISTER_USER } from '../graphql/mutations';
 
 const Register: FC = (): ReactElement => {
     const [form] = Form.useForm();
+    const [register, { data, loading, error }] = useMutation(REGISTER_USER);
 
-    const onFinish = () => {
-        return null;
+    const onFinish = (values: any) => {
+        register({
+            variables: {
+                email: values.email,
+                username: values.username,
+                password1: values.password,
+                password2: values.confirm,
+            },
+        });
     };
 
-    return (
-        <Form {...formItemLayout} form={form} name="Register" scrollToFirstError>
-            <Row gutter={8}>
-                {/* First Name */}
-                <Col span={12}>
-                    <Form.Item
-                        name="firstName"
-                        label="First Name"
-                        rules={[{ required: true, message: 'Please input your first name!', whitespace: true }]}
-                    >
-                        <Input />
-                    </Form.Item>
-                </Col>
+    if (error) console.log(error);
 
-                {/* Last Name */}
-                <Col span={12}>
-                    <Form.Item
-                        name="lastName"
-                        label="Last Name"
-                        rules={[{ required: true, message: 'Please input your last name!', whitespace: true }]}
-                    >
-                        <Input />
-                    </Form.Item>
-                </Col>
-            </Row>
+    if (data) console.log(data);
+
+    return (
+        <Form {...formItemLayout} form={form} name="Register" scrollToFirstError onFinish={onFinish}>
+            {/* Username */}
+            <Form.Item
+                name="username"
+                label="Username"
+                rules={[{ required: true, message: 'Please input your username!', whitespace: true }]}
+            >
+                <Input />
+            </Form.Item>
 
             {/* Email */}
             <Form.Item
