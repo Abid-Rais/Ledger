@@ -1,5 +1,5 @@
 from django.contrib import admin
-from backend.models import Account, Transaction
+from .models import Account, Transaction
 
 # Register your models here.
 

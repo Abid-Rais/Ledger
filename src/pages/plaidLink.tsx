@@ -1,10 +1,8 @@
 import React, { FC, ReactElement, useEffect } from 'react';
 import { PlaidLink } from 'react-plaid-link';
-import { useMutation } from '@apollo/client';
 
 import { Layout } from 'antd';
 
-import { userID } from '../cache';
 import Navbar from '../components/navbar';
 import Footer from '../components/footer';
 
@@ -25,15 +23,7 @@ const Link: FC = (): ReactElement => {
     const onSuccess = (token: string, metadata: any) => {
         console.log(token);
         console.log(metadata);
-        createPlaidToken({
-            variables: {
-                userID: userID(),
-                publicToken: token,
-            },
-        });
     };
-
-    if (data) console.log(data);
 
     // Gracefully handle the invalid link token error. A link token
     // can become invalidated if it expires, has already been used

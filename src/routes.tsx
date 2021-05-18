@@ -16,13 +16,13 @@ const BaseRouter = (): ReactElement => (
     <div>
         <BrowserRouter>
             <Switch>
-                <Route exact path="/" component={Dashboard} />
+                <Route exact path="/" component={Login} />
                 <Route exact path="/dashboard/" component={Dashboard} />
                 <Route exact path="/connectPlaid/" component={Link} />
                 <Route exact path="/signup/" component={Register} />
                 <Route exact path="/password/reset/" component={resetPassword} />
                 <Route exact path="/password/reset/confirm/:uid/:token" component={resetPasswordConfirm} />
-                <Route exact path="/activate/:token" component={activateUser} />
+                <Route exact path="/activate/:uid/:token" component={activateUser} />
                 <Route exact path="/error/notAuthenticated/" component={NotAuthenticated} />
                 <Route component={NotFound} />
             </Switch>
