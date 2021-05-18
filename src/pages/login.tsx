@@ -4,20 +4,13 @@ import { useMutation } from '@apollo/client';
 
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { LOGIN } from '../graphql/mutations';
+
+import { userID } from '../cache';
 
 const Login: FC = (): ReactElement => {
     const [form] = Form.useForm();
-    const [tokenAuth, { data, loading, error }] = useMutation(LOGIN);
 
-    const onFinish = (values: any) => {
-        tokenAuth({
-            variables: {
-                username: values.username,
-                password: values.password,
-            },
-        });
-    };
+    const onFinish = (values: any) => {};
 
     // If loading, insert Spinner
     if (loading) {
@@ -25,7 +18,10 @@ const Login: FC = (): ReactElement => {
     }
 
     // If signed in successfully, redirect to Dashboard
-    if (data && data.tokenAuth.success) return <Redirect to="/dashboard/" />;
+    if (data && data.tokenAuth.success) {
+        userID(data.tokenAuth.user.id);
+        return <Redirect to="/dashboard/" />;
+    }
 
     // If error, insert tooltop
     if (error) {

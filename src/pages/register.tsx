@@ -3,11 +3,8 @@ import { useMutation } from '@apollo/client';
 
 import { Form, Input, Checkbox, Button } from 'antd';
 
-import { REGISTER_USER } from '../graphql/mutations';
-
 const Register: FC = (): ReactElement => {
     const [form] = Form.useForm();
-    const [register, { data, loading, error }] = useMutation(REGISTER_USER);
 
     const onFinish = (values: any) => {
         register({

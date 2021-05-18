@@ -4,19 +4,8 @@ import { useMutation } from '@apollo/client';
 import { RouteComponentProps } from 'react-router-dom';
 
 import { Form, Button } from 'antd';
-import { VERIFY_USER } from '../graphql/mutations';
 
 const activateUser: FC<RouteComponentProps> = ({ match }): ReactElement => {
-    const [verifyAccount, { data, loading, error }] = useMutation(VERIFY_USER);
-
-    const onFinish = () => {
-        verifyAccount({
-            variables: {
-                token: match.params,
-            },
-        });
-    };
-
     // If loading, insert Spinner
     if (loading) {
         return <div></div>;
