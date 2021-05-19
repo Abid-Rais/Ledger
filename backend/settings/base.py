@@ -15,7 +15,8 @@ from pathlib import Path
 from datetime import timedelta
 
 # Base Directory
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 # Application definition
 
