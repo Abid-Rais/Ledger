@@ -1,13 +1,13 @@
-import React, { FC, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 
 import { login } from '../actions/auth';
 
-import { Form, Input, Button } from 'antd';
-import { MailOutlined, LockOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Spin } from 'antd';
+import { MailOutlined, LockOutlined, LoadingOutlined } from '@ant-design/icons';
 
-import { GlobalState } from '../interfaces';
+import { GlobalState, User } from '../interfaces';
 
 interface LoginProps {
     login: any;
@@ -23,7 +23,7 @@ const Login = ({ login, isAuthenticated, user, isLoading }: LoginProps): ReactEl
 
     // If loading, insert Spinner
     if (isLoading) {
-        return <div></div>;
+        return <LoadingOutlined style={{ fontSize: 24 }} spin />;
     }
 
     // If signed in successfully, redirect to Dashboard

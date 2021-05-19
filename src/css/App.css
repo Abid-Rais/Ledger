@@ -1,7 +1,13 @@
 @import '~antd/dist/antd.css';
 
+/* login.tsx */
+
 .login-form {
-    max-width: 300px;
+    padding-top: 10%;
+    margin: auto;
+    align-items: center;
+    text-align: center;
+    width: 40%;
 }
 
 #login .ant-col-rtl .login-form-forgot {
@@ -10,4 +16,10 @@
 
 #login .login-form-button {
     width: 100%;
+}
+
+/* transactionTable.tsx */
+
+.transactions-table {
+    margin: 0% 5% 0% 5%;
 }

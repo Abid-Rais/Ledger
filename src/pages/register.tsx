@@ -1,16 +1,17 @@
-import React, { FC, ReactElement, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 
 import { signup } from '../actions/auth';
 
-import { ComponentReduxProps } from '../interfaces';
+import { GlobalState } from '../interfaces';
 
 import { Form, Input, Checkbox, Button } from 'antd';
 
 interface RegisterUsersProps {
     signup: any;
+    isLoading: boolean;
 }
 
 const Register = ({ signup }: RegisterUsersProps): ReactElement => {
