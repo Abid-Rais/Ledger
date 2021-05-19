@@ -20,10 +20,13 @@ from django.conf.urls import url
 from django.urls.conf import include
 from django.urls import path
 
+from django.views.generic import TemplateView
+
 from .views import index
 
 urlpatterns = [
-    path('', index, name='index'),
+    # path('', index, name='index'),
+    path('', TemplateView.as_view(template_name='index.html')),
     path('admin/', admin.site.urls),
 
     # Plaid API
