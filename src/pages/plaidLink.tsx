@@ -1,4 +1,10 @@
 import React, { FC, ReactElement, useEffect } from 'react';
+import axios from 'axios';
+import { connect, useStore } from 'react-redux';
+
+import { addPublicToken } from '../actions/plaid';
+import { GlobalState, User } from '../interfaces';
+
 import { PlaidLink } from 'react-plaid-link';
 
 import { Layout } from 'antd';
@@ -10,7 +16,12 @@ const { PLAID_PUBLIC_KEY } = process.env;
 
 const { Content } = Layout;
 
-const Link: FC = (): ReactElement => {
+interface LinkProps {
+    user: User;
+    addPublicToken: any;
+}
+
+const Link = ({ user, addPublicToken }: LinkProps): ReactElement => {
     // (Optional): Load new link_token
     // Doing publicKey method
     useEffect(() => {
@@ -22,7 +33,8 @@ const Link: FC = (): ReactElement => {
     // authenticated and selected an account to use.
     const onSuccess = (token: string, metadata: any) => {
         console.log(token);
-        console.log(metadata);
+        addPublicToken(user.id, token);
+        console.log('end of onSuccess');
     };
 
     // Gracefully handle the invalid link token error. A link token
@@ -52,4 +64,8 @@ const Link: FC = (): ReactElement => {
     );
 };
 
-export default Link;
+const mapStateToProps = (state: GlobalState) => ({
+    user: state.auth.user,
+});
+
+export default connect(mapStateToProps, { addPublicToken })(Link);

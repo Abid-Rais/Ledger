@@ -1,6 +1,7 @@
 // Authentication Models
 
 export interface User {
+    id: number;
     email: string;
     name: string;
 }
@@ -59,7 +60,7 @@ export interface AuthState {
     access: string | null;
     refresh: string | null;
     isAuthenticated: boolean;
-    user: User | null;
+    user: User | any;
     isLoading: boolean;
 }
 

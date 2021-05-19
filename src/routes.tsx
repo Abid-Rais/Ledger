@@ -16,7 +16,7 @@ const BaseRouter = (): ReactElement => (
     <div>
         <BrowserRouter>
             <Switch>
-                <Route exact path="/" component={Dashboard} />
+                <Route exact path="/" component={Login} />
                 <Route exact path="/dashboard/" component={Dashboard} />
                 <Route exact path="/connectPlaid/" component={Link} />
                 <Route exact path="/signup/" component={Register} />

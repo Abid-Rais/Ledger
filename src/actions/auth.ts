@@ -165,15 +165,12 @@ export const signup = (email: string, name: string, password: string, re_passwor
     const body = JSON.stringify({ email, name, password, re_password });
     try {
         // const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/jwt/create/`, body, config);
-        console.log(body);
         const res = await axios.post(`${REACT_APP_API_URL}/djoser/auth/users/`, body, config);
-        console.log(res);
         dispatch({
             type: SIGNUP_SUCCESS,
             payload: res.data,
         });
     } catch (err) {
-        console.log(err);
         dispatch(returnErrors(err.response.data, err.response.status, 'SIGNUP_FAIL'));
         dispatch({
             type: SIGNUP_FAIL,

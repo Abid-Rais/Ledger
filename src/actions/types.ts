@@ -56,3 +56,9 @@ export const LOAD_TRANSACTIONS_FAIL = 'LOAD_TRANSACTIONS_FAIL';
 
 // Clear Data
 export const CLEAR_DATA = 'CLEAR_DATA';
+
+// PLAID
+
+// Send Public Key
+export const SEND_PUBLICKEY_SUCCESS = 'SEND_PUBLICKEY_SUCCESS';
+export const SEND_PUBLICKEY_FAIL = 'SEND_PUBLICKEY_FAIL';
