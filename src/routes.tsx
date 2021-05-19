@@ -22,7 +22,7 @@ const BaseRouter = (): ReactElement => (
                 <Route exact path="/signup/" component={Register} />
                 <Route exact path="/password/reset/" component={resetPassword} />
                 <Route exact path="/password/reset/confirm/:uid/:token" component={resetPasswordConfirm} />
-                <Route exact path="/activate/:token" component={activateUser} />
+                <Route exact path="/activate/:uid/:token" component={activateUser} />
                 <Route exact path="/error/notAuthenticated/" component={NotAuthenticated} />
                 <Route component={NotFound} />
             </Switch>

@@ -1,10 +1,17 @@
 import React, { FC, ReactElement } from 'react';
-import './css/App.css';
+import { Provider } from 'react-redux';
 
+import store from './store';
 import BaseRouter from './routes';
 
+import './css/App.css';
+
 const App: FC = (): ReactElement => {
-    return <BaseRouter />;
+    return (
+        <Provider store={store}>
+            <BaseRouter />
+        </Provider>
+    );
 };
 
 export default App;

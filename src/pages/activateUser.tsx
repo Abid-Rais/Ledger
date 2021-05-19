@@ -1,25 +1,41 @@
-import React, { FC, ReactElement, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
-import { RouteComponentProps } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { verify } from '../actions/auth';
 
 import { Form, Button } from 'antd';
 
-const activateUser: FC<RouteComponentProps> = ({ match }): ReactElement => {
+interface ActivateUserProps {
+    match: any;
+    verify: any;
+}
+
+const activateUser = ({ match, verify }: ActivateUserProps): ReactElement => {
+    const [requestSent, setRequestSent] = useState(false);
+
+    const onFinish = (values: any) => {
+        const uid = match.params.uid;
+        const token = match.params.token;
+
+        verify(uid, token);
+        setRequestSent(true);
+    };
+
     // If loading, insert Spinner
-    if (loading) {
-        return <div></div>;
-    }
+    // if (loading) {
+    //     return <div></div>;
+    // }
 
     // After sending request successfully, redirect back to Login
-    if (data && data.verifyAccount.success) {
+    if (requestSent) {
         return <Redirect to="/" />;
     }
 
-    // If error, insert tooltop
-    if (error) {
-        return <div></div>;
-    }
+    // // If error, insert tooltop
+    // if (error) {
+    //     return <div></div>;
+    // }
 
     return (
         <div>
@@ -37,4 +53,4 @@ const activateUser: FC<RouteComponentProps> = ({ match }): ReactElement => {
     );
 };
 
-export default activateUser;
+export default connect(null, { verify })(activateUser);

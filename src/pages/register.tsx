@@ -1,30 +1,37 @@
-import React, { FC, ReactElement } from 'react';
-import { useMutation } from '@apollo/client';
+import React, { ReactElement, useState } from 'react';
+
+import { connect } from 'react-redux';
+import { Redirect, Link } from 'react-router-dom';
+
+import { signup } from '../actions/auth';
+
+import { GlobalState } from '../interfaces';
 
 import { Form, Input, Checkbox, Button } from 'antd';
 
-const Register: FC = (): ReactElement => {
+interface RegisterUsersProps {
+    signup: any;
+    isLoading: boolean;
+}
+
+const Register = ({ signup }: RegisterUsersProps): ReactElement => {
+    const [userCreated, setUserCreated] = useState(false);
     const [form] = Form.useForm();
 
     const onFinish = (values: any) => {
-        register({
-            variables: {
-                email: values.email,
-                username: values.username,
-                password1: values.password,
-                password2: values.confirm,
-            },
-        });
+        const { email, username, password, confirm_password } = values;
+        signup(email, username, password, confirm_password);
+        setUserCreated(true);
     };
 
-    if (loading) return <div></div>;
+    // if (loading) return <div></div>;
 
     // Insert tooltip to check email for verifcation link
-    if (data && data.register.success) {
+    if (userCreated) {
         return <div></div>;
     }
 
-    if (error) return <div></div>;
+    // if (error) return <div></div>;
 
     return (
         <Form {...formItemLayout} form={form} name="Register" scrollToFirstError onFinish={onFinish}>
@@ -72,7 +79,7 @@ const Register: FC = (): ReactElement => {
 
             {/* Confirm Password */}
             <Form.Item
-                name="confirm"
+                name="confirm_password"
                 label="Confirm Password"
                 dependencies={['password']}
                 hasFeedback
@@ -145,4 +152,4 @@ const tailFormItemLayout = {
     },
 };
 
-export default Register;
+export default connect(null, { signup })(Register);

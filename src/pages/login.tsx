@@ -1,45 +1,53 @@
-import React, { FC, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
+import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
 
-import { Form, Input, Button } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { login } from '../actions/auth';
 
-import { userID } from '../cache';
+import { Form, Input, Button, Spin } from 'antd';
+import { MailOutlined, LockOutlined, LoadingOutlined } from '@ant-design/icons';
 
-const Login: FC = (): ReactElement => {
+import { GlobalState, User } from '../interfaces';
+
+interface LoginProps {
+    login: any;
+    isAuthenticated: boolean;
+    user: any;
+    isLoading: boolean;
+}
+
+const Login = ({ login, isAuthenticated, user, isLoading }: LoginProps): ReactElement => {
     const [form] = Form.useForm();
 
-    const onFinish = (values: any) => {};
+    const onFinish = (values: any) => login(values.email, values.password);
 
     // If loading, insert Spinner
-    if (loading) {
-        return <div></div>;
+    if (isLoading) {
+        return <LoadingOutlined style={{ fontSize: 24 }} spin />;
     }
 
     // If signed in successfully, redirect to Dashboard
-    if (data && data.tokenAuth.success) {
-        userID(data.tokenAuth.user.id);
+    if (isAuthenticated && user) {
         return <Redirect to="/dashboard/" />;
     }
 
     // If error, insert tooltop
-    if (error) {
-        return <div></div>;
-    }
+    // if (error) {
+    //     return <div></div>;
+    // }
 
     return (
         <Form name="Login" className="login-form" form={form} onFinish={onFinish}>
             <Form.Item
-                name="username"
+                name="email"
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your Username',
+                        message: 'Please input your Email',
                     },
                 ]}
             >
-                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
             </Form.Item>
 
             <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password' }]}>
@@ -66,4 +74,10 @@ const Login: FC = (): ReactElement => {
     );
 };
 
-export default Login;
+const mapStateToProps = (state: GlobalState) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user,
+    isLoading: state.auth.isLoading,
+});
+
+export default connect(mapStateToProps, { login })(Login);
