@@ -8,6 +8,8 @@ from plaid import Client
 
 from .models import Account, PlaidToken, Transaction
 
+from pprint import pprint
+
 # Create your views here.
 
 PLAID_CLIENT_ID = config('PLAID_CLIENT_ID')
@@ -37,37 +39,41 @@ def createLinkToken():
 
 @csrf_exempt
 def registerAccount(request):
-    print(request)
-    print(request.POST)
 
-    userID = int(request.POST['userID'])
-    publicToken = request.POST['publicToken']
+    userID = int(request.POST.get('userID'))
+    publicToken = request.POST.get('publicToken')
 
+    # Get User Object
+    currUser = CustomUser.objects.get(pk=userID)
+
+    # Retrieve access Token
     res = client.Item.public_token.exchange(publicToken)
     accessToken = res['access_token']
 
     allAccounts = client.Accounts.get(accessToken)["accounts"]
+
     for account in allAccounts:
         newAccount = Account(
             accountID=account["account_id"],
             currentBalance=account["balances"]["current"],
             name=account["name"],
             type=account["type"],
-            user=userID)
+            user=currUser)
         newAccount.save()
 
-        newPlaidToken = PlaidToken.objects.create(
-            accessToken=accessToken,
-            user=newAccount)
-        newPlaidToken.save()
+    # Check if user already has access token
 
-        print(newAccount + " created")
-        print(newPlaidToken + " created")
+    # Save permanent access token for user
+    newPlaidToken = PlaidToken.objects.create(
+        accessToken=accessToken,
+        user=currUser)
+    newPlaidToken.save()
 
     syncTransactions(accessToken)
 
 
 def syncTransactions(accessToken):
+
     res = client.Transactions.get(
         accessToken, start_date='2021-04-19', end_date='2021-05-18')
 
@@ -79,11 +85,15 @@ def syncTransactions(accessToken):
         transactions.extend(res['transactions'])
 
     for transaction in transactions:
+        currAccount = Account.objects.get(accountID=transaction["account_id"])
+
         newTransaction = Transaction.objects.create(
             transactionID=transaction["transaction_id"],
             amount=transaction["amount"],
             date=transaction["date"],
             categoryID=transaction["category_id"],
             merchantName=transaction["name"],
-            merchantLocation=transaction["location"]["city"])
+            merchantLocation=transaction["location"]["city"],
+            account=currAccount
+        )
         newTransaction.save()

@@ -11,14 +11,14 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["ledger.herokuapp.com"]
+ALLOWED_HOSTS = ["https://ledger-plaid.herokuapp.com/"]
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': config('DATABASE_ENGINE'),
+        'ENGINE': "django.db.backends.postgresql_psycopg2",
         'HOST': config('DATABASE_HOST'),
         'NAME': config('DATABASE_NAME'),
         'PORT': config('DATABASE_PORT', cast=int),
@@ -26,8 +26,6 @@ DATABASES = {
         'PASSWORD': config('DATABASE_PASSWORD'),
     }
 }
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

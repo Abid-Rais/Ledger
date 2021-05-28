@@ -7,7 +7,7 @@ const { Footer } = Layout;
 const Footer_: FC = (): ReactElement => {
     return (
         <Layout>
-            <Footer style={{ textAlign: 'center', position: 'absolute', left: 0, bottom: 0, right: 0 }}>
+            <Footer style={{ textAlign: 'center', position: 'absolute', left: 0, right: 0 }}>
                 Ledger ©2021 | Created by Abid
             </Footer>
         </Layout>

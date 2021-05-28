@@ -11,7 +11,7 @@ export interface User {
 export interface Account {
     AccountUID: number; // Primary Key
     accountID: number;
-    currentBalance: number;
+    currentBalance: string;
     name: string;
     type: string;
     user: User; // Foreign Key
@@ -38,9 +38,10 @@ export interface AuthReduxProps {
     error: ErrorState;
 }
 
-export interface ComponentReduxProps extends AuthReduxProps {
+export interface ComponentReduxProps {
     data: {
         allTransactions?: Transaction[];
+        allAccounts?: Account[];
     };
     error: ErrorState;
 }
@@ -66,6 +67,8 @@ export interface AuthState {
 
 export interface DataState {
     allTransactions: Transaction[];
+    allAccounts: Account[];
+    currentAccount: Account | any;
 }
 
 export interface ErrorState {

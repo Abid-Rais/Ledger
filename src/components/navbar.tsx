@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -6,12 +6,23 @@ import { Layout, Menu } from 'antd';
 
 const { Header } = Layout;
 
-const Navbar: FC = (): ReactElement => {
+import { logout } from '../actions/auth';
+import { connect } from 'react-redux';
+
+interface NavbarProps {
+    logout: any;
+}
+
+const Navbar = ({ logout }: NavbarProps): ReactElement => {
+    const handleLogout = () => {
+        logout();
+    };
+
     return (
         <Layout>
             <Header>
                 <Menu
-                    style={{ position: 'fixed', top: '0px' }}
+                    style={{ position: 'relative', top: '0px' }}
                     theme="dark"
                     mode="horizontal"
                     defaultSelectedKeys={['1']}
@@ -25,7 +36,7 @@ const Navbar: FC = (): ReactElement => {
                     <Menu.Item key="3">
                         <Link to="/connectPlaid/">Connect Bank Account</Link>
                     </Menu.Item>
-                    <Menu.Item key="4" style={{ float: 'right' }}>
+                    <Menu.Item key="4" style={{ float: 'right' }} onClick={handleLogout}>
                         <Link to="/">Logout</Link>
                     </Menu.Item>
                 </Menu>
@@ -34,4 +45,4 @@ const Navbar: FC = (): ReactElement => {
     );
 };
 
-export default Navbar;
+export default connect(null, { logout })(Navbar);

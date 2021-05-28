@@ -1,5 +1,15 @@
 @import '~antd/dist/antd.css';
 
+html,
+body {
+    height: 100%;
+    position: relative;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 /* login.tsx */
 
 .login-form {

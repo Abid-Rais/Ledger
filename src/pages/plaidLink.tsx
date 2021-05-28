@@ -32,9 +32,7 @@ const Link = ({ user, addPublicToken }: LinkProps): ReactElement => {
     // The onSuccess function is called when the user has successfully
     // authenticated and selected an account to use.
     const onSuccess = (token: string, metadata: any) => {
-        console.log(token);
         addPublicToken(user.id, token);
-        console.log('end of onSuccess');
     };
 
     // Gracefully handle the invalid link token error. A link token
@@ -47,7 +45,7 @@ const Link = ({ user, addPublicToken }: LinkProps): ReactElement => {
     return (
         <Layout>
             <Navbar />
-            <Content>
+            <Content style={{ display: 'flex', justifyContent: 'center' }}>
                 <PlaidLink
                     clientName="Ledger"
                     env="sandbox"
@@ -55,8 +53,15 @@ const Link = ({ user, addPublicToken }: LinkProps): ReactElement => {
                     publicKey={PLAID_PUBLIC_KEY || '668a83c8171c9519018c53afa0242b'}
                     onExit={onExit}
                     onSuccess={onSuccess}
+                    style={{
+                        width: '800px',
+                        marginRight: 'auto',
+                        marginLeft: 'auto',
+                        marginTop: '100px',
+                        marginBottom: '500px',
+                    }}
                 >
-                    Open Link and connect your bank!
+                    Open Link to Connect your Bank Account!
                 </PlaidLink>
             </Content>
             <Footer />

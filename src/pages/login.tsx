@@ -37,40 +37,52 @@ const Login = ({ login, isAuthenticated, user, isLoading }: LoginProps): ReactEl
     // }
 
     return (
-        <Form name="Login" className="login-form" form={form} onFinish={onFinish}>
-            <Form.Item
-                name="email"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your Email',
-                    },
-                ]}
+        <div>
+            <h1
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100px',
+                }}
             >
-                <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
-            </Form.Item>
+                Ledger
+            </h1>
+            <Form name="Login" className="login-form" form={form} onFinish={onFinish}>
+                <Form.Item
+                    name="email"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your Email',
+                        },
+                    ]}
+                >
+                    <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
+                </Form.Item>
 
-            <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password' }]}>
-                <Input
-                    prefix={<LockOutlined className="site-form-item-icon" />}
-                    type="password"
-                    placeholder="Password"
-                />
-            </Form.Item>
+                <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password' }]}>
+                    <Input
+                        prefix={<LockOutlined className="site-form-item-icon" />}
+                        type="password"
+                        placeholder="Password"
+                    />
+                </Form.Item>
 
-            <Form.Item>
-                <a className="login-form-forgot" href="">
-                    Forgot password
-                </a>
-            </Form.Item>
+                <Form.Item>
+                    <p className="mt-3">
+                        Forgot your Password? <Link to="/password/reset/">Reset Reset Password</Link>
+                    </p>
+                </Form.Item>
 
-            <Form.Item>
-                <Button type="primary" htmlType="submit" className="login-form-button">
-                    Log in
-                </Button>
-                Or <Link to="/signup/">register now!</Link>
-            </Form.Item>
-        </Form>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" className="login-form-button">
+                        Log in
+                    </Button>
+                    Or <Link to="/signup/">Register Now!</Link>
+                </Form.Item>
+            </Form>
+        </div>
     );
 };
 

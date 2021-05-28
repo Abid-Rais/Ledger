@@ -22,6 +22,8 @@ const Register = ({ signup }: RegisterUsersProps): ReactElement => {
         const { email, username, password, confirm_password } = values;
         signup(email, username, password, confirm_password);
         setUserCreated(true);
+
+        return <Redirect to="/" />;
     };
 
     // if (loading) return <div></div>;

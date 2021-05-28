@@ -7,11 +7,11 @@ class Account(models.Model):
     # Primary Key
     accountUID = models.AutoField(verbose_name="Account UID", primary_key=True)
 
-    accountID = models.CharField(verbose_name="Account ID", max_length=25)
+    accountID = models.CharField(verbose_name="Account ID", max_length=50)
     currentBalance = models.DecimalField(
         verbose_name="Current Balance", max_digits=9, decimal_places=2)
     name = models.CharField(verbose_name="Account Name", max_length=50)
-    type = models.CharField(verbose_name="Account Type", max_length=25)
+    type = models.CharField(verbose_name="Account Type", max_length=50)
 
     # Many-to-One Relation to Account (Foreign Key)
     user = models.ForeignKey(
@@ -50,7 +50,7 @@ class Transaction(models.Model):
     merchantName = models.CharField(
         verbose_name="Merchant Name", max_length=50)
     merchantLocation = models.CharField(
-        verbose_name="Merchant Location", max_length=50)
+        verbose_name="Merchant Location", max_length=50, blank=True, null=True)
 
     # Many-to-One Relation to Account (Foreign Key)
     account = models.ForeignKey(

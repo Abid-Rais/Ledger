@@ -1,5 +1,8 @@
 from rest_framework.viewsets import ModelViewSet
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseNotFound
 
+from authentication.models import CustomUser
 from Ledger.models import Account, Transaction
 from .serializers import AccountSerializer, TransactionSerializer
 
@@ -13,7 +16,24 @@ class AccountFilterViewSet(ModelViewSet):
 
     def get_queryset(self):
         userID = self.kwargs['userID']
-        return Account.objects.filter(user_id=userID)
+
+        currUser = CustomUser.objects.get(pk=userID)
+
+        queryset = Account.objects.filter(user_id=currUser)
+
+        return queryset
+
+
+class AccountFetchViewSet(ModelViewSet):
+    """
+        This view should return the associated account as determined by the accountUID portion of the URL 
+    """
+
+    serializer_class = AccountSerializer
+
+    def get_queryset(self):
+        accountUID = self.kwargs['accountUID']
+        return Account.objects.filter(pk=accountUID)
 
 
 class TransactionFilterViewSet(ModelViewSet):
@@ -24,5 +44,18 @@ class TransactionFilterViewSet(ModelViewSet):
     serializer_class = TransactionSerializer
 
     def get_queryset(self):
-        accountUID = self.kwargs['accountID']
-        return Transaction.objects.filter(account_accountUID=accountUID)
+
+        try:
+            accountUID = self.kwargs['accountID']
+
+            if (accountUID == -1):
+                return Transaction.objects.all()
+
+            currAccount = Account.objects.get(accountUID=accountUID)
+
+            queryset = Transaction.objects.filter(account=currAccount)
+
+            return queryset
+
+        except ObjectDoesNotExist:
+            return HttpResponseNotFound("Not Found")

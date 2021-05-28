@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 
-import { Modal, Descriptions, Menu } from 'antd';
+import { Modal, Descriptions, Menu, Button } from 'antd';
 
 import { Transaction } from '../interfaces';
 
@@ -13,7 +13,9 @@ const TransactionModal = ({ transactionData }: TransactionModalProps): ReactElem
 
     return (
         <div className="transactions-modal">
-            <Menu.Item onClick={() => setVisible(true)}>View More</Menu.Item>
+            <Button type="primary" onClick={() => setVisible(true)}>
+                View More
+            </Button>
 
             <Modal
                 title={`Transaction ID. ${transactionData.transactionID}`}

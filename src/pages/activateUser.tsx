@@ -20,6 +20,8 @@ const activateUser = ({ match, verify }: ActivateUserProps): ReactElement => {
 
         verify(uid, token);
         setRequestSent(true);
+
+        return <Redirect to="/" />;
     };
 
     // If loading, insert Spinner

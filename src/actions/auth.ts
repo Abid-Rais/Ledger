@@ -19,11 +19,11 @@ import {
     USER_DELETE_SUCCESS,
     USER_DELETE_FAIL,
     LOGOUT,
+    CLEAR_DATA,
 } from './types';
 import { returnErrors } from './error';
 
-// const { REACT_APP_API_URL } = process.env;
-const REACT_APP_API_URL = 'http://localhost:8000';
+const { REACT_APP_API_URL } = process.env;
 
 /**
  * Sends dispatch based on Authorization token.
@@ -82,7 +82,6 @@ export const login = (email: string, password: string) => async (dispatch: any) 
 
         dispatch(load_user());
     } catch (err) {
-        console.log(err);
         dispatch(returnErrors(err.details, err.status, err.id));
         dispatch({
             type: LOGIN_FAIL,
@@ -104,7 +103,6 @@ export const reset_password = (email: string) => async (dispatch: any) => {
     const body = JSON.stringify({ email });
 
     try {
-        console.log(body);
         const res = await axios.post(`${REACT_APP_API_URL}/djoser/auth/users/reset_password/`, body, config);
 
         dispatch({
@@ -258,6 +256,9 @@ export const deleteUser = (password: string) => async (dispatch: any) => {
 };
 
 export const logout = () => (dispatch: any) => {
+    dispatch({
+        type: CLEAR_DATA,
+    });
     dispatch({
         type: LOGOUT,
     });

@@ -6,6 +6,7 @@ import TransactionModal from './transactionsModal';
 import { Table } from 'antd';
 
 import { loadTransactions } from '../actions/data';
+
 import { GlobalState, Transaction } from '../interfaces';
 
 interface TransactionTableProps {

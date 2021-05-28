@@ -7,7 +7,6 @@ import BaseRouter from './routes';
 import './css/App.css';
 
 const App: FC = (): ReactElement => {
-    console.log('loaoded');
     return (
         <Provider store={store}>
             <BaseRouter />
